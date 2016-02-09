@@ -1,0 +1,158 @@
+@import "variables.less";
+
+.coming_soon{
+    background: url(../../images/coming-soon.png) no-repeat scroll center top;
+    .inner{
+        margin: 0;
+        padding-bottom: 50px;
+        background: fade(@baseColor2,80%);
+        color: #fff;
+    }
+    .first_part{
+        width: 740px;
+        text-align: center;
+        margin: 0 auto;
+        padding: 275px 0 235px;
+        h2{
+            font-weight: bold;
+            font-size: 56px;
+            line-height: 40px;
+            margin: 0 0 35px;
+        }
+        p{
+            font-size: 13px;
+            line-height: 19px;
+            margin:0 auto 60px;
+            max-width: 620px;
+        }
+        .clock{
+            margin: 2em;
+        }
+    }
+    .second_part{
+        border-top: 1px solid fade(#fff,10%);
+        border-bottom: 1px solid fade(#fff,10%);
+        padding: 30px 0;
+        margin: 0 40px;
+        overflow: hidden;
+        .marquee{
+            font-size: 21px;
+            line-height: 17px;
+            font-weight: bold;
+            color: #fff;
+            white-space: nowrap;
+            text-transform: uppercase;
+            height: 21px;
+            &:hover{
+                &:before{
+                    animation-play-state: paused;
+                }
+            }
+        }
+    }
+}
+
+/*Timer Modification*/
+.flip-clock-wrapper{
+    background: url(../../images/coming-soon-bg.png) no-repeat scroll center 0;
+    margin: 0 auto !important;
+    display: table;
+    width: 600px;
+    .flip-clock-dot{
+        visibility: hidden;
+    }
+    .flip-clock-divider{
+        height: 132px;
+        width: 68px;
+        .flip-clock-label{
+            top: 150px;
+            font-size: 18px;
+            font-family: @baseFont2;
+            font-weight: bold;
+            color: #fff;
+            text-transform: uppercase;
+            width: 105px;
+            text-align: center;
+            right: -98px;
+            &:before{
+                content: '';
+                width: 106px;
+                height: 1px;
+                background: fade(@baseColor2,22%);
+                position: absolute;
+                left: -1px;
+                top: -85px;
+                z-index: 99;
+            }
+        }
+        &.days{
+            width: 18px;
+            .flip-clock-label{                
+            }
+        }
+        &.hours{
+            .flip-clock-label{                
+            }
+        }
+        &.minutes{
+            .flip-clock-label{                
+            }
+        }
+        &.seconds{
+            .flip-clock-label{                
+            }
+        }
+    }
+    ul.flip{
+        margin: 0;
+        overflow: hidden;
+//        background: @baseColor;
+        background: none;
+        box-shadow: none;
+        height: 132px;
+        width: 45px;        
+        li{
+            line-height: 132px;
+            &.flip-clock-before{
+                display: none;
+            }
+            a{
+                div{
+                    * {
+                        font-family: @baseFont2;
+                        font-size: 42px;
+                        font-weight: bold;
+                    }
+                    div.inn{
+//                        background: @baseColor;
+                        background: none;
+                        border-radius: 0;
+                        text-shadow: none;
+                        color: #fff;
+                        animation: none;
+                    }
+                    &.up{
+                        &:after{
+//                            height: 1px;
+//                            top: 66px;
+                            display: none;
+                        }
+                        .shadow{
+                            display: none;
+                        }
+                    }
+                    &.down{
+                        border-radius: 0;
+                        .shadow{
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+        &:nth-child(2){
+        }
+        &:nth-child(3){
+        }
+    }
+}
