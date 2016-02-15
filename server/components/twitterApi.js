@@ -9,6 +9,6 @@ tweetsForTopicSince = function(topic, lastSearch, callback) {
   T.get('search/tweets', {
     q: topic,
     since: lastSearch,
-    count: 1
+    count: 10
   }, callback)
 };

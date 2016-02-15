@@ -9,4 +9,10 @@ function loadFixture(fixtures, collection) {
 
 Meteor.startup(function () {
   //loadFixture(Fixtures['dummyFixture'], DummyCollection);
+  var sdc = {
+    title: "Self Driving Cars",
+    lastSearch: moment().subtract(1, "hour").format()
+  }
+
+  //Topics.insert(sdc);
 });

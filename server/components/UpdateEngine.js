@@ -13,18 +13,23 @@ processTopic = function(topic) {
   // Get a set of tweets for this topic
   tweetsForTopicSince(topic.title, topic.lastSearch, Meteor.bindEnvironment(function(err, results) {
     _.each(results.statuses, function(tweet) {
-      console.log(JSON.stringify(tweet, null, 2));
       if (tweet.entities.urls && tweet.entities.urls.length > 0) {
-        createArticleCI(tweet);
+        createArticleCI(topic._id, tweet);
       }
     });
   }));
+
+  //Topics.update({_id:topic._id}, {lastSearch: moment().format()});
+  Topics.update({_id:topic._id}, {$set: {lastSearch: moment().format()}});
 }
 
 // Create a base Content Item object
 generateBaseCI = function(tweet) {
+  console.log("ID: " + tweet.id);
+  console.log("id_str: " + tweet.id_str);
   var ci = {
     _id: tweet.id_str,
+    id: tweet.id,
     createdAt: tweet.created_at,
     previewText: tweet.text
   }
@@ -33,24 +38,44 @@ generateBaseCI = function(tweet) {
 }
 
 // Create an article specific Content Item
-createArticleCI = function(tweet) {
-  var ci = generateBaseCI(tweet);
-  console.log("---------------------");
-  console.log(JSON.stringify(tweet));
-  console.log("---------------------");
+createArticleCI = function(topicId, tweet) { var ci = generateBaseCI(tweet);
 
   fetchHtml(tweet.entities.urls[0].expanded_url, function(htmlResult){
     var data = extractor(htmlResult.content);
-    console.log(JSON.stringify(data, null, 2));
 
-    // Add additional information to CI object
+  // Add additional information to CI object
+    ci.topicId = topicId;
     ci.images = [data.image];
     ci.videos = data.videos;
     ci.title = data.title;
     ci.text = data.text;
+    ci.originLink = data.canonicalLink;
 
-    console.log(JSON.stringify(ci, null, 2));
-    ContentItems.insert(ci);
+    if (validCI(ci) && uniqueCI(ci)) {
+      ContentItems.insert(ci);
+    }
+    else {
+      console.log("Invalid CI. Ignoring...");
+    }
   });
 }
+
+// Determine if Content Item is valid
+validCI = function(ci) {
+  if (ci.images.length == 0) return false;
+  if (ci.images[0] == null) return false;
+  if (ci.title == "") return false;
+  if (ci.previewText == "") return false;
+  if (ci.originLink == "") return false;
+  return true;
+}
+
+// Determine if CI already exists
+// Because apparantly IDs are worthless
+uniqueCI = function(ci) {
+  if (ContentItems.find(ci._id).count() > 0) return false;
+  if (ContentItems.find({title: ci.title}).count() > 0) return false;
+  return true;
+}
+
 

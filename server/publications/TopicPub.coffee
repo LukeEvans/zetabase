@@ -1,1 +1,1 @@
-Meteor.publish 'Topic', -> Topic.find()
+Meteor.publish 'topics', -> Topics.find()

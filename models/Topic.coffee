@@ -1,10 +1,10 @@
 root = exports ? this
 
-root.Topic = new Mongo.Collection 'Topic'
+root.Topics = new Mongo.Collection 'topics'
 
 # Collection2 already does schema checking
 # Add custom permission rules if needed
-root.Topic.allow(
+root.Topics.allow(
   insert : -> true
 
   update : -> true

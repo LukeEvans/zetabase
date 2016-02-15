@@ -1,8 +1,6 @@
 Template['topic'].helpers({
   items: function() {
-    console.log("what");
-    console.log(ContentItems.find().count());
-    return ContentItems.find().fetch();
+    return ContentItems.find({topicId: this._id});
   },
   image: function() {
     return this.images[0];

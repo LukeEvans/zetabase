@@ -1,11 +1,24 @@
 <template name="topic">
-  <div style="padding-top: 150px; padding-left: 50px">
+  <div class="row">
     {{#each items}}
-      <div class="item">
-        {{title}}
-        <br>
-        <img src="{{image}}" alt="some_text">
+    <div class="col s12 m4">
+      <div class="card">
+        <div class="card-image waves-effect waves-block waves-light">
+          <img class="activator" src={{image}}>
+        </div>
+        <div class="card-content">
+          <span class="card-title activator grey-text text-darken-4">{{title}}<i class="material-icons right">more_vert</i></span>
+          <p>{{previewText}}</p>
+          <p><a href={{originLink}}>Original Link</a></p>
+        </div>
+        <div class="card-reveal">
+          <span class="card-title grey-text text-darken-4">{{title}}<i class="material-icons right">close</i></span>
+          <p>{{text}}</p>
+          <b>Debug Info:</b><br>
+          <span>ID: {{_id}}</span>
+        </div>
       </div>
+    </div>
     {{/each}}
   </div>
 </template>
