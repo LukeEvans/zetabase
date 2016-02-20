@@ -1,2 +1,11 @@
 <template name="home">
+  <div class=row>
+    <ul>
+      <div class="col s4 offset-s4">
+        {{#each topics}}
+          <li><a href=/topics/{{url}}>{{title}}</a></li>
+        {{/each}}
+      </div>
+    </ul>
+  </div>
 </template>
